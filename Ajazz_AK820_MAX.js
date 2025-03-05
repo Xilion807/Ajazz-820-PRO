@@ -93,18 +93,6 @@ export function Shutdown() {
 }
 
 export function Validate(endpoint) {
-	// [IGNORE] endpoint.interface: 0, endpoint.usage: 0x0002, endpoint.usage_page: 0x0001, endpoint.collection: 0x0001
-	// [IGNORE] endpoint.interface: 0, endpoint.usage: 0x0001, endpoint.usage_page: 0x000c, endpoint.collection: 0x0002
-	// [IGNORE] endpoint.interface: 0, endpoint.usage: 0x0080, endpoint.usage_page: 0x0001, endpoint.collection: 0x0003
-	// [IGNORE] endpoint.interface: 1, endpoint.usage: 0x0006, endpoint.usage_page: 0x0001, endpoint.collection: 0x0000
-	// [IGNORE] endpoint.interface: 0, endpoint.usage: 0x0006, endpoint.usage_page: 0x0001, endpoint.collection: 0x0004
-	// [IGNORE] endpoint.interface: 2, endpoint.usage: 0x0091, endpoint.usage_page: 0xff1b, endpoint.collection: 0x0000
-	
-	// return endpoint.interface === 0 && endpoint.usage === 0x0002 && endpoint.usage_page === 0x0001 && endpoint.collection === 0x0001;
-	// return endpoint.interface === 0 && endpoint.usage === 0x0001 && endpoint.usage_page === 0x000c && endpoint.collection === 0x0002;
-	// return endpoint.interface === 0 && endpoint.usage === 0x0080 && endpoint.usage_page === 0x0001 && endpoint.collection === 0x0003;
-	// return endpoint.interface === 1 && endpoint.usage === 0x0006 && endpoint.usage_page === 0x0001 && endpoint.collection === 0x0000;
-	// return endpoint.interface === 0 && endpoint.usage === 0x0006 && endpoint.usage_page === 0x0001 && endpoint.collection === 0x0004;
 	return endpoint.interface === 2 && endpoint.usage === 0x0091 && endpoint.usage_page === 0xff1b && endpoint.collection === 0x0000;
 }
 
@@ -121,23 +109,6 @@ function hexToRgb(hex) {
 	return colors;
 }
 
-function buildPacket(header, insercoes, colors) {
-    let packet = header.slice();
-    // Ordena as inserções em ordem decrescente para não afetar os índices das inserções posteriores
-    insercoes.sort((a, b) => b.pos - a.pos);
-    insercoes.forEach(({ pos, colorIndex }) => {
-        // Preenche o array com 0x00 até que o tamanho seja, pelo menos, igual a 'pos'
-        while (packet.length < pos) {
-            packet.push(0x00);
-        }
-        // Insere os valores da cor (espera-se que seja um array) na posição especificada
-        packet.splice(pos, 0, ...colors[colorIndex]);
-    });
-	
-    return packet;
-}
-
-
 function getColorIndex(resetCount)
 {
 	if(resetCount)
@@ -152,9 +123,7 @@ function getColorIndex(resetCount)
 }
 
 function sendColors(shutdown = false) {
-	// Packets Example:
-
-	// Packet:
+	// Packet Example:
 	// 010f00000036   2faced 000000 2faced 2faced 2faced 2faced 000000 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 000000 000000 000000 00
 	// 010f00000136   000000 000000 000000 000000 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 000000 000000 00
 	// 010f00000236   2faced 2faced 000000 000000 000000 000000 000000 000000 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 2faced 000000 00
