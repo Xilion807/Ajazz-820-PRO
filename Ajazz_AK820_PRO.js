@@ -1,7 +1,7 @@
 export function Name() { return "Ajazz AK820 PRO"; }
 export function Publisher() { return "RunNow"; }
 export function VendorId() { return  0x320f;}  //Device's USB Vendor Id in Hex
-export function ProductId() { return [0x505b, 0xfdfd];} //Device's USB Product Id in Hex
+export function ProductId() { return 0x505b;} //Device's USB Product Id in Hex
 export function Size() { return [31, 11]; }
 export function DefaultPosition(){return [0, 5];}
 export function DefaultScale(){return 1.5;}
