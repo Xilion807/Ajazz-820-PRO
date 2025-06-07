@@ -1,7 +1,7 @@
-export function Name() { return "Ajazz AK820 MAX"; }
-export function VendorId() { return 0x0416; }
-export function ProductId() { return 0x7372; }
-export function Publisher() { return "VitorTaichou"; }
+export function Name() { return "Ajazz AK820 PRO"; }
+export function VendorId() { return 0x320f; }
+export function ProductId() { return 0x505b; }
+export function Publisher() { return "Xilion"; }
 export function Documentation(){ return "troubleshooting/brand"; }
 export function Size() { return [16,7]; }
 export function ControllableParameters() {
